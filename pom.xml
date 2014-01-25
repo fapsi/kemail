@@ -8,7 +8,7 @@
 	<name>KEmail</name>
 	<description>A Kindlet for viewing emails on the device.</description>
 	<url>https://github.com/fapsi/kemail</url>
-	
+
 	<developers>
 		<developer>
 			<id>Fapsi</id>
@@ -19,53 +19,39 @@
 			<timezone>+1</timezone>
 		</developer>
 	</developers>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<kindleRootMountPoint>${user.home}/kindle/</kindleRootMountPoint>
+		<kindleRootMountPoint>${user.home}/kindle/mnt.us.documents</kindleRootMountPoint>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>jb_repo</id>
+			<name>JailbreakRepo</name>
+			<url>file://${project.basedir}/lib/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.amazon</groupId>
 			<artifactId>kindle</artifactId>
-			<version>2.1</version>
+			<version>2.2</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/Kindlet-2.1.jar</systemPath>
+			<systemPath>${project.basedir}/lib/Kindlet-2.2.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.amazon</groupId>
 			<artifactId>kindleImpl</artifactId>
-			<version>2.1</version>
+			<version>2.2</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/KindletImplementation-2.1.jar</systemPath>
+			<systemPath>${project.basedir}/lib/KindletImplementation-2.2.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>com.amazon</groupId>
-			<artifactId>KindleDeviceServicesAbstraction</artifactId>
-			<version>2.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/KindleDeviceServicesAbstraction-2.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.amazon</groupId>
-			<artifactId>KindleDeviceServicesJuno</artifactId>
-			<version>2.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/KindleDeviceServicesJuno-2.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.amazon</groupId>
-			<artifactId>KindleBookletDRM</artifactId>
-			<version>2.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/KindletBookletDRM-2.1.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>boh.ixtab</groupId>
+			<groupId>ixtab</groupId>
 			<artifactId>jailbreak</artifactId>
-			<version>0.0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/jailbreak.jar</systemPath>
+			<version>2011051901</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -74,16 +60,27 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>commons-net</groupId>
-			<artifactId>commons-net</artifactId>
-			<version>3.3</version>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.4.7</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1</version>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.retroweaver</groupId>
+			<artifactId>retroweaver-rt</artifactId>
+			<version>2.0.7</version>
+		</dependency>
 	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -102,7 +99,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.4</source>
+					<source>1.5</source>
 					<target>1.4</target>
 				</configuration>
 			</plugin>
@@ -114,28 +111,24 @@
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>
 						<manifest>
-							<mainClass>de.fapsi.kemail.KindletEMail</mainClass>
+							<Main-Class>de.fapsi.kemail.KindletEMail</Main-Class>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
 						<manifestEntries>
-							<!-- <Description>Test!</Description> -->
+							<!-- <Description></Description> -->
 							<Implementation-Title>KEmail</Implementation-Title>
 							<Implementation-Version>${project.version}</Implementation-Version>
 							<Implementation-Vendor>Fapsi</Implementation-Vendor>
 
 							<Extension-List>SDK</Extension-List>
 							<SDK-Extension-Name>com.amazon.kindle.kindlet</SDK-Extension-Name>
-							<SDK-Specification-Version>2.1</SDK-Specification-Version>
+							<SDK-Specification-Version>2.2</SDK-Specification-Version>
 
 							<Amazon-Cover-Image>main/resources/logo.png</Amazon-Cover-Image>
 
-							<!-- Network-Access-Grants: sponsored Implementation-URL: XYZ -->
-
-							<!-- 5.0.* -->
 							<Toolbar-Style>none</Toolbar-Style>
-
-							<!-- 5.1 -->
 							<Toolbar-Mode>transient</Toolbar-Mode>
+
 							<Font-Size-Mode>point</Font-Size-Mode>
 						</manifestEntries>
 					</archive>
@@ -154,7 +147,46 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<!-- This is a plugin, which allowes to compile a Java 1.5 created file into a .jar which is executable with Java 1.4 using
+			retroweaver. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<includeProjectDependencies>true</includeProjectDependencies>
+					<includePluginDependencies>true</includePluginDependencies>
+					<mainClass>net.sourceforge.retroweaver.Weaver</mainClass>
+					<arguments>
+						<argument>-jar</argument>
+						<argument>${project.build.directory}/${project.build.finalName}.jar</argument>
+						<argument>${project.build.directory}/${project.build.finalName}_downcompiled_JAVA_1_4.jar</argument>
+						<!-- verifyrefs? <argument>-verifyrefs</argument> -->
+						<!-- classpath  <argument>retroweaver-rt-2.0.7.jar;</argument> -->
+						<!-- See for usage of retroweaver argument -help  -->
+					</arguments>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>net.sourceforge.retroweaver</groupId>
+						<artifactId>retroweaver</artifactId>
+						<version>2.0.7</version>
+					</dependency>
+					<dependency>
+						<groupId>net.sourceforge.retroweaver</groupId>
+						<artifactId>retroweaver-rt</artifactId>
+						<version>2.0.7</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<!-- This plugin signs the .jar with a special developer key. -->
 			<plugin>
 				<artifactId>maven-jarsigner-plugin</artifactId>
 				<version>1.2</version>
@@ -193,6 +225,8 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- This plugin removes the old version of kemail and renames and copies the new version to the kindle -->
+			<!-- Note: The kindle has to be mounted over sshfs or as usb-storage. -->
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>1.7</version>
@@ -206,7 +240,7 @@
 						<configuration>
 							<target>
 								<delete
-									file="${kindleRootMountPoint}/mnt/us/documents/${project.build.finalName}.azw2" />
+									file="${kindleRootMountPoint}/${project.build.finalName}.azw2" />
 							</target>
 						</configuration>
 					</execution>
@@ -219,11 +253,11 @@
 						<configuration>
 							<target>
 								<move
-									file="${project.build.directory}/${project.build.finalName}.jar"
+									file="${project.build.directory}/${project.build.finalName}_downcompiled_JAVA_1_4.jar"
 									tofile="${project.build.directory}/${project.build.finalName}.azw2" />
 								<copy
 									file="${project.build.directory}/${project.build.finalName}.azw2"
-									todir="${kindleRootMountPoint}/mnt/us/documents/" />
+									todir="${kindleRootMountPoint}/" />
 							</target>
 						</configuration>
 					</execution>

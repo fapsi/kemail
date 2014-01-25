@@ -6,6 +6,8 @@ target/
 lib/KindleDeviceServicesAbstraction-2.1.jar
 lib/KindleDeviceServicesJuno-2.1.jar
 lib/Kindlet-2.1.jar
+lib/Kindlet-2.2.jar
 lib/KindletBookletDRM-2.1.jar
 lib/KindletImplementation-2.1.jar
+lib/KindletImplementation-2.2.jar
 lib/KindletSystemPlugins-2.1.jar
