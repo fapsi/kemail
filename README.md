@@ -12,10 +12,12 @@ Twobob Ixtab Stepk Niluje - for Kual.
 
 Copyright (third party components)
 ======
+Java Mail API
+==
+https://java.net/projects/javamail/pages/License
 
-=================
  mstor - License
-=================
+======
 
 Copyright (c) 2012, Ben Fortuna
 All rights reserved.
