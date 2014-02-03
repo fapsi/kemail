@@ -22,8 +22,13 @@ import com.amazon.kindle.kindlet.internal.G;
 import com.amazon.kindle.kindlet.ui.KOptionPane;
 
 import de.fapsi.kemail.firmware.UnsupportedFirmwareException;
+import de.fapsi.kemail.ui.KEmailStartPage;
 
 public class KindletEMail extends SuicidalKindlet {
+	
+	//TODO: create properties file
+
+	public static final String input_accounts_file_path ="data/t.accounts";
 
 	private boolean first_start = true;
 	private KindletContext ctx;
@@ -48,7 +53,7 @@ public class KindletEMail extends SuicidalKindlet {
 
 
 	private void initPreUI() {
-		this.ctx.setSubTitle("Viewing emails on your kindle.");
+		this.ctx.setSubTitle("View mails on your kindle.");
 		
 	}
 
@@ -84,7 +89,6 @@ public class KindletEMail extends SuicidalKindlet {
 			if (jailbreak.isAvailable()) {
 				if (((LocalJailbreak) jailbreak).requestPermissions()) {
 					txt += "Permissions allowed";
-					
 				} else {
 					showAndQuit("Kindlet jailbreak failed","The Kindlet Jailbreak failed to obtain all required permissions. Please report this error.",null);
 				}
@@ -98,7 +102,8 @@ public class KindletEMail extends SuicidalKindlet {
 		}
 		
 
-		this.rootContainer.setLayout(new BorderLayout());
+		KEmailStartPage gui = new KEmailStartPage();
+		this.rootContainer.add(gui);
         this.rootContainer.requestFocus();
         
         try{
@@ -106,8 +111,8 @@ public class KindletEMail extends SuicidalKindlet {
         }catch(Exception e){
         	txt += e.getMessage();
         }
-        this.rootContainer.add(new JScrollPane(new JTextArea(
-        		txt)));
+        //this.rootContainer.add(new JScrollPane(new JTextArea(
+        //		txt)));
         
 		first_start = false;
 	}
