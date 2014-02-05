@@ -1,24 +1,23 @@
 kemail
-======
+=
 
 Email kindlet
 
 Credits
-======
-(MobileRead community)[http://www.mobileread.com/forums/forumdisplay.php?f=150], especially:  
+=
+MobileRead community [http://www.mobileread.com/forums/forumdisplay.php?f=150], especially:  
 Yifanlu, Yossarian17, Niluje and everyone else involved in the jailbreak for 5.0.x - 5.4.2 firmware.  
-Ixtab - For the unrestricted permissions on the device (SuicidalKindlet).  
-Twobob Ixtab Stepk Niluje - for Kual.
+Ixtab - For the unrestricted permissions on the device (SuicidalKindlet[https://bitbucket.org/ixtab/kindletjailbreak]).  
+Twobob Ixtab Stepk Niluje - for KUAL[http://www.mobileread.com/forums/showthread.php?t=203326].
 
-Copyright (third party components)
-======
+Copyrights (third-party binaries)
+=
 Java Mail API
-==
+=
 https://java.net/projects/javamail/pages/License
 
- mstor - License
-======
-
+mstor - License
+=
 Copyright (c) 2012, Ben Fortuna
 All rights reserved.
 
