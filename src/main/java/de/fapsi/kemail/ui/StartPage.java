@@ -25,15 +25,16 @@ import edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
  * @author fapsi
  *
  */
-public class KEmailStartPage extends JPanel implements ActionListener{
-	
-	private KEmailState state;
-	
+public class StartPage extends JPanel implements ActionListener{
+		
 	private MailAccountManager manager;
 	
 	private JButton exitbtn;
+
+	private GraphicalUserInterface gui;
 	
-	public KEmailStartPage (){
+	public StartPage (GraphicalUserInterface gui){
+		this.gui = gui;
 		ArrayList<Account> accounts = new ArrayList<Account>();
 		accounts.add(new Account("test@testos.de", "test1",	 "pw"));
 		accounts.add(new Account("test@testos.com", "test2", "pw"));
