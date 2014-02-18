@@ -1,4 +1,4 @@
-kemail
+KEmail
 =
 A customized kindlet to view e-mails on your kindle-device.
 
@@ -10,6 +10,7 @@ Ixtab - For the unrestricted permissions on the device (Kindlet Jailbreak[Prereq
 Twobob Ixtab Stepk Niluje - for [KUAL](http://www.mobileread.com/forums/showthread.php?t=203326).
 
 Copyrights
+=
 [kemail](https://github.com/fapsi/kemail/wiki/copyrights-of-kemail)  
 [third-party binaries](https://github.com/fapsi/kemail/wiki/copyrights-of-used-third-party-binaries)  
 
