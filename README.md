@@ -1,17 +1,49 @@
-KEmail
+kemail
 =
-A customized kindlet to view e-mails on your kindle-device.
+
+Email kindlet
 
 Credits
 =
-[MobileRead community](http://www.mobileread.com/forums/forumdisplay.php?f=150), especially:  
+MobileRead community [http://www.mobileread.com/forums/forumdisplay.php?f=150], especially:  
 Yifanlu, Yossarian17, Niluje and everyone else involved in the jailbreak for 5.0.x - 5.4.2 firmware.  
-Ixtab - For the unrestricted permissions on the device (Kindlet Jailbreak [Prerequisites](http://www.mobileread.com/forums/showthread.php?t=233932),[GIT](https://bitbucket.org/ixtab/kindletjailbreak)) and for CollectionManager([Home](http://www.mobileread.com/forums/showthread.php?t=186305),[GIT](https://bitbucket.org/ixtab/ktcollectionsmgr))  
-Twobob Ixtab Stepk Niluje - for [KUAL](http://www.mobileread.com/forums/showthread.php?t=203326).
+Ixtab - For the unrestricted permissions on the device (SuicidalKindlet[https://bitbucket.org/ixtab/kindletjailbreak]).  
+Twobob Ixtab Stepk Niluje - for KUAL[http://www.mobileread.com/forums/showthread.php?t=203326].
 
-Copyrights
+Copyrights (third-party binaries)
 =
-[kemail](https://github.com/fapsi/kemail/wiki/copyrights-of-kemail)  
-[third-party binaries](https://github.com/fapsi/kemail/wiki/copyrights-of-used-third-party-binaries)  
+Java Mail API
+=
+https://java.net/projects/javamail/pages/License
 
+mstor - License
+=
+Copyright (c) 2012, Ben Fortuna
+All rights reserved.
 
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+        o Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+        o Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.
+
+        o Neither the name of Ben Fortuna nor the names of any other contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

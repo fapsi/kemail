@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.mnode.mstor</groupId>
+  <artifactId>mstor</artifactId>
+  <version>0.9.11</version>
+  <versioning>
+    <versions>
+      <version>0.9.11</version>
+    </versions>
+    <lastUpdated>20140309144749</lastUpdated>
+  </versioning>
+</metadata>

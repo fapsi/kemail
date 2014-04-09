@@ -22,21 +22,21 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<kindleRootMountPoint>/media/Kindle/documents</kindleRootMountPoint>
+		<kindleRootMountPoint>/home/fapsi/kindle/mnt.us.documents</kindleRootMountPoint>
 		<downcompiledsuffix>J_1_4_downcompiled</downcompiledsuffix>
 		<!-- ${user.home}/kindle/mnt.us.documents -->
 	</properties>
 
 	<repositories>
 		<repository>
-			<id>jailbreak</id>
+			<id>kindletjailbreaks</id>
 			<name>JailbreakRepository</name>
-			<url>file://${project.basedir}/lib/</url>
+			<url>file://${project.basedir}/lib/kindletjailbreaks</url>
 		</repository>
 		<repository>
-			<id>mstor</id>
+			<id>mailprovider</id>
 			<name>MstorRepository</name>
-			<url>file://${project.basedir}/lib/</url>
+			<url>file://${project.basedir}/lib/mailprovider</url>
 		</repository>
 	</repositories>
 
@@ -51,10 +51,38 @@
 		</dependency>
 		<dependency>
 			<groupId>com.amazon</groupId>
+			<artifactId>booklet</artifactId>
+			<version>2.2</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/KindletBooklet-2.2.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.amazon</groupId>
 			<artifactId>kindleImpl</artifactId>
 			<version>2.2</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/KindletImplementation-2.2.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.amazon</groupId>
+			<artifactId>kaf</artifactId>
+			<version>032.215573</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/kaf.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.amazon</groupId>
+			<artifactId>kafui</artifactId>
+			<version>032.215573</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/kafui.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.amazon</groupId>
+			<artifactId>utilities</artifactId>
+			<version>032.215573</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/utilities.jar</systemPath>
 		</dependency>
 		<!-- Section: Jailbreak -->
 		<dependency>
@@ -140,10 +168,10 @@
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
 						<manifestEntries>
-							<!-- <Description></Description> -->
 							<Implementation-Title>KEmail</Implementation-Title>
 							<Implementation-Version>${project.version}</Implementation-Version>
 							<Implementation-Vendor>Fapsi</Implementation-Vendor>
+							<Implementation-URL>https://github.com/fapsi/kemail</Implementation-URL>
 
 							<Extension-List>SDK</Extension-List>
 							<SDK-Extension-Name>com.amazon.kindle.kindlet</SDK-Extension-Name>
@@ -151,11 +179,12 @@
 
 							<Amazon-Cover-Image>main/resources/kemail.png</Amazon-Cover-Image>
 
-							
-
 							<Font-Size-Mode>point</Font-Size-Mode>
+							<Toolbar-Mode>full</Toolbar-Mode>
+							<Toolbar-Style>default-chrome-style</Toolbar-Style>
 						</manifestEntries>
-						<!-- <Toolbar-Style>none</Toolbar-Style>
+						<!-- 
+						<Toolbar-Style>default-chrome-style</Toolbar-Style>
 							<Toolbar-Mode>transient</Toolbar-Mode>-->
 					</archive>
 				</configuration>

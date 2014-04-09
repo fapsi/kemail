@@ -3,55 +3,92 @@
  */
 package de.fapsi.kemail.ui;
 
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SpringLayout;
 
-import com.amazon.kindle.kindlet.KindletContext;
+import com.amazon.agui.swing.KindleFrameFactory;
+import com.amazon.kindle.booklet.BookletContext;
+import com.amazon.kindle.kindlet.internal.KindletBooklet;
+import com.amazon.kindle.restricted.booklet.BookletContextExtension;
 
+import de.fapsi.kemail.KindletEMail;
 import de.fapsi.kemail.email.Account;
 import de.fapsi.kemail.email.MailAccountManager;
-import edu.emory.mathcs.backport.java.util.concurrent.ArrayBlockingQueue;
+import de.fapsi.kemail.lipc.LipcController;
 
 /**
  * @author fapsi
  *
  */
 public class StartPage extends JPanel implements ActionListener{
-		
-	private MailAccountManager manager;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3912173366496016740L;
+	
+	private boolean isfullscreen = false;
+
+	private GraphicalUserInterface gui;
+
+	private JButton newbtn;
 	
 	private JButton exitbtn;
 
-	private GraphicalUserInterface gui;
+	private JButton fullscreenbtn;
 	
 	public StartPage (GraphicalUserInterface gui){
 		this.gui = gui;
-		ArrayList<Account> accounts = new ArrayList<Account>();
-		accounts.add(new Account("test@testos.de", "test1",	 "pw"));
-		accounts.add(new Account("test@testos.com", "test2", "pw"));
-		GridLayout layout = new GridLayout(0,1);
-		setLayout(layout);
+		
+		List<Account> accounts = gui.manager.getAccounts();
+		
+		setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		c.weightx = 0.1;
+		c.weighty = 0.1;
+		
+		c.gridwidth = 2;
+		c.gridheight = 1;
+		
+		c.fill = GridBagConstraints.BOTH;
 		
 		for (Account a : accounts){
-			add(new JButton(a.getHost()));
+			add(new JButton(a.getHost()),c);
+			c.gridy++;
 		}
 		
-		add(new JButton("New..."));
+		c.gridx = 0;
+		c.gridwidth = 1;
+		newbtn = new JButton("New...");
+		newbtn.addActionListener(this);
+		add(newbtn,c);
+		c.gridx = 1;
+		fullscreenbtn = new JButton("Fullscreen");
+		fullscreenbtn.addActionListener(this);
+		add(fullscreenbtn,c);
 		
+		c.gridx = 0;
+		c.gridwidth = 2;
+		
+		c.gridy++;
+		c.weighty = 0.1;
 		exitbtn = new JButton("Exit");
 		exitbtn.addActionListener(this);
-		add(exitbtn);
+		add(exitbtn,c);	
 		
-	}
+		validate();
+	}	
 	
 	/**
 	 * For local tests! TODO: Delete in release! Do not commit!!
@@ -86,11 +123,12 @@ public class StartPage extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == exitbtn){
-			try {
-				Runtime.getRuntime()
-						.exec("lipc-set-prop com.lab126.appmgrd stop app://com.lab126.booklet.kindlet");
-			} catch (Throwable ex) {
-			}
+			LipcController.getInstance().closeBookletKindlet();
+		} else if (e.getSource() == newbtn){
+			gui.updatePage(GUIPage.CREATE_ACCOUNT);
+		} else if (e.getSource() == fullscreenbtn){
+			//TODO
+			//gui.setSearchBarState(wanted);
 		}
 		
 	}
