@@ -3,10 +3,14 @@
  */
 package de.fapsi.kemail.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import com.amazon.agui.swing.KindleFrameFactory;
 import com.amazon.agui.swing.KindleFrameFactory.PersistentChromeMode;
@@ -21,8 +25,14 @@ import de.fapsi.kemail.email.MailAccountManager;
  * @author fapsi
  * Wrapper to switch pages
  */
-public class GraphicalUserInterface {
+public class GraphicalUserInterface extends JPanel {
 	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1016998773864645201L;
+
 	private SearchBarState searchbarstate = SearchBarState.TITLE_AND_SEARCH;
 	
 	private GUIPage state = GUIPage.START;
@@ -36,6 +46,7 @@ public class GraphicalUserInterface {
 	protected MailAccountManager manager;
 
 	public GraphicalUserInterface (KindletContext kindletcontext){
+		setLayout(new BorderLayout());
 		setBookletContext();
 		
 		this.kindletcontext = kindletcontext;
@@ -45,32 +56,40 @@ public class GraphicalUserInterface {
 		} catch (ClassNotFoundException e) {
 		} catch (IOException e) {
 		}
+		//setPreferredSize(new Dimension(748,1024));
+	}
+	
+	public void init(){
 		this.rootcontainer = kindletcontext.getRootContainer();
-		updatePage();
+		this.rootcontainer.setLayout(new BorderLayout());
+		this.rootcontainer.add(this , BorderLayout.CENTER);
+		updatePage(null);
+		
 	}
 	
 	private void setBookletContext(){
 		this.bookletcontext = KindletBooklet.getInstance().getBookletContext();
 	}
 	
-	public void updatePage(GUIPage newstate){
+	public void updatePage(GUIPage newstate,PageParameters params){
 		this.state = newstate;
-		updatePage();
+		updatePage(params);
 	}
 	
-	private void updatePage(){
-		rootcontainer.removeAll();
+	private void updatePage(PageParameters params){
+		removeAll();
+		validate();
 		System.gc();
 		switch (state){
 			case START:
-				rootcontainer.add(new StartPage(this));
+				add(new StartPage(this), BorderLayout.CENTER);
 			break;
 			case CREATE_ACCOUNT:
-				rootcontainer.add(new AccountPage(this));
+				add(new AccountPage(this), BorderLayout.CENTER);
 			default:
 			break;
 		}
-		rootcontainer.validate();
+		this.rootcontainer.validate();
 	}
 	
 	public void setSearchBarState(SearchBarState wanted){

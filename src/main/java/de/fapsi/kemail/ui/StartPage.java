@@ -3,6 +3,7 @@
  */
 package de.fapsi.kemail.ui;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -55,13 +56,14 @@ public class StartPage extends JPanel implements ActionListener{
 		c.gridx = 0;
 		c.gridy = 0;
 		
-		c.weightx = 0.1;
-		c.weighty = 0.1;
+		c.weightx = 0.0;
+		c.weighty = 0.0;
 		
 		c.gridwidth = 2;
 		c.gridheight = 1;
 		
 		c.fill = GridBagConstraints.BOTH;
+		
 		
 		for (Account a : accounts){
 			add(new JButton(a.getHost()),c);
@@ -82,7 +84,8 @@ public class StartPage extends JPanel implements ActionListener{
 		c.gridwidth = 2;
 		
 		c.gridy++;
-		c.weighty = 0.1;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
 		exitbtn = new JButton("Exit");
 		exitbtn.addActionListener(this);
 		add(exitbtn,c);	
@@ -125,7 +128,7 @@ public class StartPage extends JPanel implements ActionListener{
 		if (e.getSource() == exitbtn){
 			LipcController.getInstance().closeBookletKindlet();
 		} else if (e.getSource() == newbtn){
-			gui.updatePage(GUIPage.CREATE_ACCOUNT);
+			gui.updatePage(GUIPage.CREATE_ACCOUNT,null);
 		} else if (e.getSource() == fullscreenbtn){
 			//TODO
 			//gui.setSearchBarState(wanted);

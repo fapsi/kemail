@@ -8,7 +8,9 @@ import ixtab.jailbreak.Jailbreak;
 import ixtab.jailbreak.SuicidalKindlet;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -103,9 +105,11 @@ public class KindletEMail extends SuicidalKindlet {
 		try{
 			if (jailbreak.isAvailable()) {
 				if (((LocalJailbreak) jailbreak).requestPermissions()) {
-					rootContainer.removeAll();
+					ctx.getRootContainer().removeAll();
+					
 					gui = new GraphicalUserInterface(ctx);
-					rootContainer.requestFocus();
+					
+					gui.init();
 				} else {
 					showAndQuit(error_mkk_failed_title , error_mkk_failed , null);
 				}
@@ -149,6 +153,7 @@ public class KindletEMail extends SuicidalKindlet {
 		gbc.weighty = 1.0;
 
 		rootContainer.add(centerLabel, gbc);
+		rootContainer.validate();
 	}
 	
 	private static class LocalJailbreak extends Jailbreak {

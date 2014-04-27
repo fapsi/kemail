@@ -137,7 +137,7 @@ public class AccountPage extends JPanel implements ActionListener {
 		} else {
 			gui.manager.storeAccounts();
 		}
-		gui.updatePage(GUIPage.START);
+		gui.updatePage(GUIPage.START,null);
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == savebtn){
@@ -147,7 +147,7 @@ public class AccountPage extends JPanel implements ActionListener {
 				
 			}			
 		} else if (e.getSource() == discardbtn){
-			gui.updatePage(GUIPage.START);
+			gui.updatePage(GUIPage.START,null);
 		}
 		
 	}

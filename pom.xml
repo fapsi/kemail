@@ -22,9 +22,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<kindleRootMountPoint>/home/fapsi/kindle/mnt.us.documents</kindleRootMountPoint>
+		<kindleRootMountPoint>${user.home}/remote/kindle_documents</kindleRootMountPoint>
 		<downcompiledsuffix>J_1_4_downcompiled</downcompiledsuffix>
-		<!-- ${user.home}/kindle/mnt.us.documents -->
 	</properties>
 
 	<repositories>
