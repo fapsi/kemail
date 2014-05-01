@@ -71,12 +71,12 @@ public class GraphicalUserInterface extends JPanel {
 		this.bookletcontext = KindletBooklet.getInstance().getBookletContext();
 	}
 	
-	public void updatePage(GUIPage newstate,PageParameters params){
+	public void updatePage(GUIPage newstate,Object params){
 		this.state = newstate;
 		updatePage(params);
 	}
 	
-	private void updatePage(PageParameters params){
+	private void updatePage(Object params){
 		removeAll();
 		validate();
 		System.gc();
@@ -85,7 +85,12 @@ public class GraphicalUserInterface extends JPanel {
 				add(new StartPage(this), BorderLayout.CENTER);
 			break;
 			case CREATE_ACCOUNT:
-				add(new AccountPage(this), BorderLayout.CENTER);
+				JPanel pane = new AccountPreferencesPage(this);
+				add(pane, BorderLayout.CENTER);
+			break;
+			case OVERVIEW_ACCOUNT:
+				add(new AccountOverviewPage(this,params), BorderLayout.CENTER);
+			break;
 			default:
 			break;
 		}

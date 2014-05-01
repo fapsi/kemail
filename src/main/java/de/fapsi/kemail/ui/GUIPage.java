@@ -8,5 +8,5 @@ package de.fapsi.kemail.ui;
  *
  */
 public enum GUIPage {
-	START,INBOX,OUTBOX,CREATE_ACCOUNT;
+	START,CREATE_ACCOUNT,OVERVIEW_ACCOUNT,INBOX,OUTBOX;
 }

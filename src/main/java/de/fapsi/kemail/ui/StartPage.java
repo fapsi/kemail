@@ -46,7 +46,7 @@ public class StartPage extends JPanel implements ActionListener{
 
 	private JButton fullscreenbtn;
 	
-	public StartPage (GraphicalUserInterface gui){
+	public StartPage (final GraphicalUserInterface gui){
 		this.gui = gui;
 		
 		List<Account> accounts = gui.manager.getAccounts();
@@ -65,8 +65,17 @@ public class StartPage extends JPanel implements ActionListener{
 		c.fill = GridBagConstraints.BOTH;
 		
 		
-		for (Account a : accounts){
-			add(new JButton(a.getHost()),c);
+		for (final Account a : accounts){
+			final JButton btn = new JButton(a.getHost());
+			btn.addActionListener(new ActionListener() {
+				
+				public void actionPerformed(ActionEvent e) {
+					if (e.getSource() == btn){
+						gui.updatePage(GUIPage.OVERVIEW_ACCOUNT,a);
+					}
+				}
+			});
+			add(btn,c);
 			c.gridy++;
 		}
 		
@@ -93,47 +102,19 @@ public class StartPage extends JPanel implements ActionListener{
 		validate();
 	}	
 	
-	/**
-	 * For local tests! TODO: Delete in release! Do not commit!!
-	 * @param args
-	 * @throws MessagingException 
-	 * @throws NoSuchProviderException 
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 */
-	public static void main(String[] args) throws Exception {
-		
-		MailAccountManager am = new MailAccountManager();
-		
-		am.accounts.add(new Account("hostfadasfaafdsfads","usersaafdsfsaaffas","pw"));
-		
-		am.storeAccounts();
-		
-		am.accounts = null;
-		
-		am.readAccounts();
-		
-		System.out.println(am.accounts.size());
-		
-		
-		/*
-		IMAPController controller = new IMAPController(1);
-		
-		controller.connect();
-		System.out.println(controller.readMessages(1));
-		controller.disconnect();*/
-	}
-
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == exitbtn){
-			LipcController.getInstance().closeBookletKindlet();
-		} else if (e.getSource() == newbtn){
-			gui.updatePage(GUIPage.CREATE_ACCOUNT,null);
-		} else if (e.getSource() == fullscreenbtn){
-			//TODO
-			//gui.setSearchBarState(wanted);
+		try{
+			if (e.getSource() == exitbtn){
+				LipcController.getInstance().closeKindlet();
+			} else if (e.getSource() == newbtn){
+				gui.updatePage(GUIPage.CREATE_ACCOUNT,null);
+			} else if (e.getSource() == fullscreenbtn){
+				//TODO
+				//gui.setSearchBarState(wanted);
+			}
+		} catch (Exception ex){
+			throw new RuntimeException(ex.getMessage());
 		}
-		
 	}
 
 }

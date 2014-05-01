@@ -11,9 +11,12 @@ import javax.mail.FetchProfile;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.URLName;
+
+import de.fapsi.kemail.KindletEMail;
 
 
 
@@ -40,19 +43,12 @@ public class IMAPController {
 	
 	private Account account = null;
 	
-	public IMAPController(int account_id) throws MessagingException{
-		Properties props = new Properties();
-		props.put("mail.debug", "true");	
+	public IMAPController(Account account) throws MessagingException{
+		this.account = account;
 		
-		session = Session.getInstance(props, null);
-		remotestore = session.getStore(protocol);
-		
-		readMailAccount(account_id);
+		createRemoteStore();
 		
 		createLocalStore();
-	}
-	
-	private void readMailAccount(int account_id) {
 		
 	}
 
@@ -60,31 +56,39 @@ public class IMAPController {
 		Properties p = new Properties();
 		p.setProperty("mstor.mbox.metadataStrategy", "XML");
 		p.setProperty("mstor.metadata", "enabled");
+		p.setProperty("mstor.mozillaCompatibility", "enbled");
+		p.setProperty("mstor.debug", "false");
 		/*
-		this.properties.setProperty("mail.store.protocol", "mstor");
-        this.properties.setProperty("mstor.mbox.metadataStrategy", "none");
-        this.properties.setProperty("mstor.mbox.cacheBuffers", "disabled");
-        this.properties.setProperty("mstor.mbox.bufferStrategy", "mapped");
-        this.properties.setProperty("mstor.metadata", "disabled");
-        this.properties.setProperty("mstor.mozillaCompatibility", "enbled");
+		p.setProperty("mail.store.protocol", "mstor");
+        p.setProperty("mstor.mbox.metadataStrategy", "none");
+        p.setProperty("mstor.mbox.cacheBuffers", "disabled");
+        p.setProperty("mstor.mbox.bufferStrategy", "mapped");
+        p.setProperty("mstor.metadata", "disabled");
+        p.setProperty("mstor.mozillaCompatibility", "enbled");
 		 */
 		Session session = Session.getDefaultInstance(p);
-		localstore = session.getStore(new URLName("mstor:"  + System.getProperty("user.dir") + "/MyStore"));
+		localstore = session.getStore(new URLName("mstor:"  + KindletEMail.documentsroot + KindletEMail.data_file_path + account.getHost() + "/"));
 		
-			localstore.connect();
-			localINBOX = localstore.getDefaultFolder().getFolder("INBOX");
+		localstore.connect();
+		localINBOX = localstore.getDefaultFolder().getFolder("INBOX");
 			
-			if (!localINBOX.exists())
-				localINBOX.create(Folder.HOLDS_MESSAGES);
+		if (!localINBOX.exists())
+			localINBOX.create(Folder.HOLDS_MESSAGES);
 			
-			localINBOX.open(Folder.READ_WRITE);
+		localINBOX.open(Folder.READ_WRITE);
 			
 			//localstore.close();
+	}
+	
+	private void createRemoteStore() throws NoSuchProviderException{
+		Properties props = new Properties();
+		props.put("mail.debug", "false");	
 		
-		
+		session = Session.getInstance(props, null);
+		remotestore = session.getStore(protocol);
 	}
 
-	public boolean connect(){
+	public boolean connectToRemoteStore(){
 		if (remotestore != null){
 				try {
 					remotestore.connect(account.host, account.port, account.user, account.password);
@@ -95,6 +99,7 @@ public class IMAPController {
 		}
 		return true;
 	}
+	
 	public List<Message> readMessages(int site) throws MessagingException{
 		return readMessages(site, amountmessagesfetched);
 	}
@@ -158,6 +163,10 @@ public class IMAPController {
 	public boolean destroy(){
 		return false;
 		
+	}
+	
+	public String getLastError(){
+		return lasterror;
 	}
 
 }

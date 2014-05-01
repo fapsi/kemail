@@ -28,7 +28,8 @@ import de.fapsi.kemail.ui.GraphicalUserInterface;
 public class KindletEMail extends SuicidalKindlet {
 	//TODO: properties file
 	public static final String input_accounts_file_path ="KEmail/data/t.accounts";	
-	public static final String documentsroot = "/mnt/us/";	
+	public static final String documentsroot = "/mnt/us/";
+	public static final String data_file_path = "KEmail/data/";
 	public static final String error_mkk_failed_title = "Mobileread Kindlet Kit Failed";	
 	public static final String error_mkk_failed = "The Mobileread Kindlet Kit failed to obtain all required permissions. Please report this error.";
 	public static final String error_mkk_required_title = "Mobileread Kindlet Kit Required";
@@ -126,7 +127,9 @@ public class KindletEMail extends SuicidalKindlet {
 
 	private void showAndQuit(String title, String message, Throwable crash) {
 		setCentralMessage(title);
-		KOptionPane.showMessageDialog(ctx.getRootContainer(), message, title);
+		KOptionPane.showMessageDialog(ctx.getRootContainer(), 
+				message + (crash!=null?crash.getMessage():""), 
+				title);
 		if (crash != null) {
 			throw new RuntimeException(crash);
 		}

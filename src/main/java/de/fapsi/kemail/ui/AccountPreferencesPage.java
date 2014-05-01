@@ -21,7 +21,7 @@ import edu.emory.mathcs.backport.java.util.Arrays;
  * @author fapsi
  *
  */
-public class AccountPage extends JPanel implements ActionListener {
+public class AccountPreferencesPage extends JPanel implements ActionListener {
 	
 	/**
 	 * 
@@ -48,14 +48,17 @@ public class AccountPage extends JPanel implements ActionListener {
 
 	private GraphicalUserInterface gui;
 	
-	public AccountPage(GraphicalUserInterface gui) {
+	public AccountPreferencesPage(GraphicalUserInterface gui) {
 		this(gui,new Account());
 		newaccount = true;
 	}
 	
-	public AccountPage(GraphicalUserInterface gui, Account account){
+	public AccountPreferencesPage(GraphicalUserInterface gui, Object account){
+		if (!(account instanceof de.fapsi.kemail.email.Account))
+			throw new IllegalArgumentException("Expected Account parameter! Found "+account.getClass().getName());
+		
 		this.gui = gui;
-		this.account = account;
+		this.account = (de.fapsi.kemail.email.Account) account;
 		
 		add(makePanel());
 		
