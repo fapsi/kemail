@@ -1,4 +1,4 @@
-Note: Project is abandonned; no further updates and security risks when using!
+Note: `Project is abandonned; no further updates and security risks when using!`
 
 KEmail: https://github.com/fapsi/kemail/wiki  
 Credits: https://github.com/fapsi/kemail/wiki#credits  
